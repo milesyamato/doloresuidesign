@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme=""> <!-- This is the opening tag for the HTML document. The lang attribute specifies the language of the document, which is English in this case. The data-bs-theme attribute is a custom data attribute, likely used by Bootstrap for theming, but it's currently empty. -->
+
+<head>
+    <meta charset="UTF-8"> <!-- This meta tag specifies the character encoding for the HTML document, which is UTF-8 in this case. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- This meta tag is used for Internet Explorer compatibility. It tells IE to use the latest rendering engine. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- This meta tag is used for responsive web design. It sets the width of the viewport to the width of the device and the initial zoom level when the page is first loaded by the browser. -->
+    <link rel="shortcut icon" href="images/favicon.ico"> <!-- This link tag defines a shortcut icon (also known as a favicon) for the document. The href attribute specifies the path to the icon file. -->
+    <title>doLoRes mAgee</title> <!-- This is the title of the document. It's displayed in the browser's title bar or tab. -->
+    <link rel="stylesheet" href="./assets/css/bundle.css?v131"> <!-- This link tag links an external CSS file to the HTML document. The href attribute specifies the path to the CSS file. The ?v131 at the end is a query string used for cache busting. -->
+    <link rel="stylesheet" href="./assets/css/app.css?v131"> <!-- This is another link tag that links another external CSS file to the HTML document. The ?v131 at the end is used for the same purpose as in the previous line. -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/weather-icons/css/weather-icons.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: calc(33.333% - 0.25in); /* Adjust width to account for spacing */
+            margin: 0 0.125in 20px 0.125in; /* Adjust right and left margins as needed */
+            background-color: rgba(255, 255, 255, 0.9); /* White with slight transparency */
+        }
+
+        .card img {
+            width: 100%;
+        }
+
+        .card-content {
+            padding: 2px 16px;
+        }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding-bottom: 20px; /* Adjust this value as needed */
+            width: 70%; /* Adjust this value as needed */
+            margin: 0 auto; /* Centers the container */
+        }
+
+        #greeting-container {
+            text-align: center;
+            position: absolute;
+            top: 30%;
+            left: 60%;
+            width: 40%;
+            transform: translate(-50%, -50%);
+            padding: 20px 0; /* Adjust this value as needed */
+            font-size: 16px; /* Increase the size of the icon */
+            color: #333333; /* Color for the weather icon */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0px 0px 10px #838282; /* Add a subtle shadow */
+            background-color: rgba(242, 242, 242, 0.5); /* Light grey with 50% opacity */
+        }
+
+        #weather-container {
+    display: flex; /* Use Flexbox */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    padding: 20px; /* Some padding around the content */
+    max-width: 300px; /* Maximum width of the container */
+    margin: 60px auto; /* Center the container on the page */
+}
+
+#weather-container i {
+    font-size: 50px; /* Increase the size of the icon */
+    color: #8face3; /* Color for the weather icon */
+}
+
+#weather-container p {
+    font-size: 40px; /* Increase the font size for the text */
+    color: #8face3; /* Darker text color for readability */
+    margin: 0 0 0 11px; /* Margin only on the left of the paragraph */
+}
+    </style>
+</head>
+
+<body class="tyn-body"> <!-- This line opens the body of the HTML document. The class="tyn-body" attribute is used to apply CSS styles to the body of the document. -->
+    <div class="tyn-root"> <!-- This line opens a div element. The class="tyn-root" attribute is used to apply CSS styles to this div. -->
+        <nav class="tyn-appbar"> <!-- This line opens a navigation bar. The class="tyn-appbar" attribute is used to apply CSS styles to the navigation bar. -->
+            <div class="tyn-appbar-wrap"> <!-- This line opens a div that wraps the contents of the navigation bar. The class="tyn-appbar-wrap" attribute is used to apply CSS styles to this div. -->
+                <div class="tyn-appbar-logo"> <!-- This line opens a div that contains the logo of the app. The class="tyn-appbar-logo" attribute is used to apply CSS styles to this div. -->
+                    <a class="tyn-logo" href="index.html"> <!-- This line opens a hyperlink that points to index.html. The class="tyn-logo" attribute is used to apply CSS styles to this hyperlink. -->
+                        <img src="../images/dolooreslogo2.png" alt="Dolores Magee logo">
+                    </a>
+                </div><!-- tyn-logo -->
+                <div class="tyn-appbar-content"> <!-- This line opens a div that contains the content of the app bar. The class="tyn-appbar-content" attribute is used to apply CSS styles to this div. -->
+                    <ul class="tyn-appbar-nav tyn-appbar-nav-start"> <!-- This line opens an unordered list that represents the navigation items in the app bar. The class="tyn-appbar-nav tyn-appbar-nav-start" attribute is used to apply CSS styles to this list. -->
+                        <li class="tyn-appbar-item"> <!-- This line opens a list item that represents a single navigation item in the app bar. The class="tyn-appbar-item" attribute is used to apply CSS styles to this list item. -->
+                            <a class="tyn-appbar-link" href="index.html">
+                                <!-- Using Google Material icon for AI -->
+                                <i class="material-icons">auto_awesome</i>
+                                <span class="d-none">AI</span> <!-- Updated to make the text visible -->
+                            </a>
+                        </li><!-- .tyn-appbar-item -->
+                        <li class="tyn-appbar-item">
+                            <a class="tyn-appbar-link" href="index-starter.html">
+                                <!-- Replacing SVG with Google Material icon -->
+                                <i class="material-icons">email</i>
+                                <span class="d-none">Emails</span> <!-- This line defines a span element that contains the text "Chats". The class="d-none" attribute is used to apply CSS styles to this span. In this case, the d-none class is commonly used in Bootstrap to hide an element. -->
+                            </a>
+                        </li>                        
+                        <li class="tyn-appbar-item d-none d-sm-inline-flex"> <!-- has additional classes d-none and d-sm-inline-flex. These are Bootstrap classes where d-none hides the element and d-sm-inline-flex makes the element display as an inline-flex container on small (sm) or larger screens. This means the list item and its contents will be hidden on extra small (xs) screens, and displayed as an inline-flex container on small (sm) or larger screens. -->
+                            <a class="tyn-appbar-link" href="indexold.html">
+                                <!-- Using Google Material icon for contacts -->
+                                <i class="material-icons">contacts</i>
+                                <span class="d-none">Contacts</span> <!-- Updated to make the text visible, remove 'd-none' if you want it shown -->
+                            </a>                            
+                        </li><!-- .tyn-appbar-item -->
+                        <li class="tyn-appbar-item d-none d-sm-inline-flex"> <!-- has additional classes d-none and d-sm-inline-flex. These are Bootstrap classes where d-none hides the element and d-sm-inline-flex makes the element display as an inline-flex container on small (sm) or larger screens. This means the list item and its contents will be hidden on extra small (xs) screens, and displayed as an inline-flex container on small (sm) or larger screens. -->
+                            <a class="tyn-appbar-link position-relative" href="chat-bot-s2.html"> <!-- The hyperlink in this list item points to chat-bot-s2.html and has the class position-relative, which sets the position of the element to relative. This allows you to position the element relative to its normal position using CSS properties (top, right, bottom, left). -->
+                                <!-- person-bounding-box -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+                                    <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                </svg>
+                                <!-- <div class="badge bg-primary position-absolute rounded-pill top-0 end-0 mt-n1 me-n1">2</div> --> <!-- This line defines a div element that contains the text "2". The class attribute is used to apply CSS styles to this div. In this case, the div is styled as a badge with a primary background color, positioned absolutely at the top right corner of its nearest positioned ancestor (offset from the top by -1 unit of the font size, and from the end by -1 unit of the font size), and rounded to a pill shape. -->
+                                <span class="d-none">ChatBot 2</span> <!-- This line defines a span element that contains the text "ChatBot 2". The class="d-none" attribute is used to apply CSS styles to this span. In this case, the d-none class is commonly used in Bootstrap to hide an element. -->
+                            </a>
+                        </li><!-- .tyn-appbar-item -->
+                        <li class="tyn-appbar-item d-none d-sm-inline-flex"> <!-- has additional classes d-none and d-sm-inline-flex. These are Bootstrap classes where d-none hides the element and d-sm-inline-flex makes the element display as an inline-flex container on small (sm) or larger screens. This means the list item and its contents will be hidden on extra small (xs) screens, and displayed as an inline-flex container on small (sm) or larger screens. -->
+                            <a class="tyn-appbar-link" href="chat-bot-word.html"> <!-- The hyperlink in this list item points to stories.html and has the class tyn-appbar-link, which is used to apply CSS -->
+                                <!-- subtract -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-subtract" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2z" />
+                                </svg>
+                                <span class="d-none">Stories</span> <!--  This line defines a span element that contains the text "Stories". The class="d-none" attribute is used to apply CSS styles to this span. In this case, the d-none class is commonly used in Bootstrap to hide an element. -->
+                            </a>
+                        </li><!-- .tyn-appbar-item -->
+                    </ul><!-- .tyn-appbar-nav -->
+                    <ul class="tyn-appbar-nav tyn-appbar-nav-end"> <!-- This line opens a new unordered list with the classes tyn-appbar-nav and tyn-appbar-nav-end, which are used to apply CSS styles to this list. -->
+                        <li class="tyn-appbar-item dropdown"> <!-- This line opens a new list item with the classes tyn-appbar-item and dropdown, which are used to apply CSS styles to this list item and indicate that it's a dropdown menu. -->
+                            <a class="tyn-appbar-link dropdown-toggle" data-bs-toggle="dropdown" href="#" data-bs-offset="0,10"> 
+                                <!-- grid-fill -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-fill" viewBox="0 0 16 16">
+                                    <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z" />
+                                </svg>
+                                <span class="d-none">Menu</span> <!-- This line defines a span element that contains the text "Menu". The class="d-none" attribute is used to apply CSS styles to this span. In this case, the d-none class is commonly used in Bootstrap to hide an element. -->
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-auto dropdown-menu-end"> <!-- This line opens a div element with the classes dropdown-menu, dropdown-menu-auto, and dropdown-menu-end, which are used to apply CSS styles to this div and indicate that it's a dropdown menu that aligns to the end of the parent element. -->
+                                <ul class="tyn-list-links"> <!-- This line opens an unordered list with the class tyn-list-links, which is used to apply CSS styles to this list. -->
+                                    <li>
+                                        <h6 class="tyn-list-links-heading">Quick Links</h6> <!-- This line defines a heading element that contains the text "Quick Links". The class="tyn-list-links-heading" attribute is used to apply CSS styles to this heading. -->
+                                    </li><!-- li -->
+                                    <li>
+                                        <a href="index.html"> <!-- This line opens a hyperlink that points to index.html. -->
+                                            <!-- chat-text-fill -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-text-fill" viewBox="0 0 16 16">
+                                                <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
+                                            </svg>
+                                            <span>Chats</span> <!-- This line defines a span element that contains the text "Chats". -->
+                                        </a>
+                                    </li><!-- li -->
+                                    <li>
+                                        <a href="contacts.html"> <!-- This line opens a hyperlink that points to contacts.html. -->
+                                            <!-- person-lines-fill -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                                                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
+                                            </svg>
+                                            <span>Contacts</span> <!-- This line defines a span element that contains the text "Contacts". -->
+                                        </a>
+                                    </li><!-- li -->
+                                    <li>
+                                        <a href="stories.html"> <!-- This line opens a hyperlink that points to stories.html. -->
+                                            <!-- subtract -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-subtract" viewBox="0 0 16 16">
+                                                <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2z" />
+                                            </svg>
+                                            <span>Stories</span> <!-- This line defines a span element that contains the text "Stories". -->
+                                        </a>
+                                    </li><!-- li -->
+                                    <li>
+                                        <a href="chat-bot.html"> <!-- This line opens a hyperlink that points to chat-bot.html. -->
+                                            <!-- robot -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-robot" viewBox="0 0 16 16">
+                                                <path d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.58 26.58 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.933.933 0 0 1-.765.935c-.845.147-2.34.346-4.235.346-1.895 0-3.39-.2-4.235-.346A.933.933 0 0 1 3 9.219V8.062Zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a24.767 24.767 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25.286 25.286 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135Z" />
+                                                <path d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2V1.866ZM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5Z" />
+                                            </svg>
+                                            <span>ChatBot</span> <!-- This line defines a span element that contains the text "ChatBot". -->
+                                        </a>
+                                    </li><!-- li -->
+                                    <li>
+                                        <a href="chat-bot-s2.html"> <!--  This line opens a hyperlink that points to chat-bot-s2.html. -->
+                                            <!-- person-bounding-box -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+                                                <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
+                                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                            </svg>
+                                            <span>ChatBot S2</span> <!-- This line defines a span element that contains the text "ChatBot S2". -->
+                                        </a>
+                                    </li><!-- li -->
+                                    <li>
+                                        <a href="chat-bot-welcome.html"> <!-- This line opens a hyperlink that points to chat-bot-welcome.html. -->
+                                            <!-- door-open-fill -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open-fill" viewBox="0 0 16 16">
+                                                <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z" />
+                                            </svg>
+                                            <span>ChatBot Welcome</span> <!-- This line defines a span element that contains the text "ChatBot Welcome". -->
+                                        </a>
+                                    </li><!-- li -->
+                                    <li>
+                                        <a href="pricing.html"> <!-- This line opens a hyperlink that points to pricing.html. -->
+                                            <!-- person-fill-up -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-up" viewBox="0 0 16 16">
+                                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.354-5.854 1.5 1.5a.5.5 0 0 1-.708.708L13 11.707V14.5a.5.5 0 0 1-1 0v-2.793l-.646.647a.5.5 0 0 1-.708-.708l1.5-1.5a.5.5 0 0 1 .708 0ZM11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z" />
+                                            </svg>
+                                            <span>Pricing</span> <!--  This line defines a span element that contains the text "Pricing". -->
+                                        </a>
+                                    </li><!-- li -->
+                                    <li>
+                                        <a href="faq.html"> <!-- This line opens a hyperlink that points to faq.html. -->
+                                            <!-- question-octagon-fill -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-octagon-fill" viewBox="0 0 16 16">
+                                                <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM5.496 6.033a.237.237 0 0 1-.24-.247C5.35 4.091 6.737 3.5 8.005 3.5c1.396 0 2.672.73 2.672 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.105a.25.25 0 0 1-.25.25h-.81a.25.25 0 0 1-.25-.246l-.004-.217c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.803 0-1.253.478-1.342 1.134-.018.137-.128.25-.266.25h-.825zm2.325 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" />
+                                            </svg>
+                                            <span>Faq</span> <!-- This line defines a span element that contains the text "Faq". -->
+                                        </a>
+                                    </li><!-- li -->
+                                    <li>
+                                        <h6 class="tyn-list-links-heading">UI Components</h6> <!-- This line defines a heading with the text "UI Components". The class attribute is used to apply CSS styles to the heading. -->
+                                    </li><!-- li -->
+                                    <li>
+                                        <a href="ui-chat-replies.html"> <!-- This line opens a hyperlink that points to ui-chat-replies.html. -->
+                                            <!-- chat-right-text-fill -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-right-text-fill" viewBox="0 0 16 16">
+                                                <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9.586a1 1 0 0 1 .707.293l2.853 2.853a.5.5 0 0 0 .854-.353V2zM3.5 3h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1zm0 2.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1zm0 2.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z" />
+                                            </svg>
+                                            <span>Chat Replaies</span> <!-- This line defines a span element that contains the text "Chat Replaies". -->
+                                        </a>
+                                    </li><!-- li -->
+                                    <li>
+                                        <a href="ui-usecase-modals.html"> <!-- This line opens a hyperlink that points to ui-usecase-modals.html. -->
+                                            <!-- front -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-front" viewBox="0 0 16 16">
+                                                <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm5 10v2a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2v5a2 2 0 0 1-2 2H5z" />
+                                            </svg>
+                                            <span>UseCase Modals</span> <!-- This line defines a span element that contains the text "UseCase Modals". -->
+                                        </a>
+                                    </li><!-- li -->
+                                    <li>
+                                        <a href="ui-elements.html"> <!-- This line opens a hyperlink that points to ui-elements.html. -->
+                                            <!-- safe-fill -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-safe-fill" viewBox="0 0 16 16">
+                                                <path d="M9.778 9.414A2 2 0 1 1 6.95 6.586a2 2 0 0 1 2.828 2.828z" />
+                                                <path d="M2.5 0A1.5 1.5 0 0 0 1 1.5V3H.5a.5.5 0 0 0 0 1H1v3.5H.5a.5.5 0 0 0 0 1H1V12H.5a.5.5 0 0 0 0 1H1v1.5A1.5 1.5 0 0 0 2.5 16h12a1.5 1.5 0 0 0 1.5-1.5v-13A1.5 1.5 0 0 0 14.5 0h-12zm3.036 4.464 1.09 1.09a3.003 3.003 0 0 1 3.476 0l1.09-1.09a.5.5 0 1 1 .707.708l-1.09 1.09c.74 1.037.74 2.44 0 3.476l1.09 1.09a.5.5 0 1 1-.707.708l-1.09-1.09a3.002 3.002 0 0 1-3.476 0l-1.09 1.09a.5.5 0 1 1-.708-.708l1.09-1.09a3.003 3.003 0 0 1 0-3.476l-1.09-1.09a.5.5 0 1 1 .708-.708zM14 6.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 1 0z" />
+                                            </svg>
+                                            <span>Misc Elements</span> <!-- This line defines a span element that contains the text "Misc Elements". -->
+                                        </a>
+                                    </li><!-- li -->
+                                </ul><!-- .tyn-list-links -->
+                            </div><!-- .dropdown-menu -->
+                        </li><!-- .tyn-appbar-item -->
+                        <li class="tyn-appbar-item"> ><!-- This line opens a list item with the class tyn-appbar-item, which is likely used for styling. -->
+                            <a class="tyn-appbar-link dropdown-toggle" data-bs-toggle="dropdown" href="#" data-bs-offset="0,10" data-bs-auto-close="outside"> <!-- This line opens a hyperlink that acts as a dropdown toggle. The data-bs-toggle="dropdown" attribute is a Bootstrap attribute that makes this link open a dropdown menu. The data-bs-offset="0,10" attribute offsets the dropdown menu by 10 pixels in the y-direction. The data-bs-auto-close="outside" attribute makes the dropdown menu close when you click outside of it. -->
+                                <!-- app-indicator -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-app-indicator" viewBox="0 0 16 16">
+                                    <path d="M5.5 2A3.5 3.5 0 0 0 2 5.5v5A3.5 3.5 0 0 0 5.5 14h5a3.5 3.5 0 0 0 3.5-3.5V8a.5.5 0 0 1 1 0v2.5a4.5 4.5 0 0 1-4.5 4.5h-5A4.5 4.5 0 0 1 1 10.5v-5A4.5 4.5 0 0 1 5.5 1H8a.5.5 0 0 1 0 1H5.5z" />
+                                    <path d="M16 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                </svg>
+                                <span class="d-none">Notifications</span> <!-- This line defines a span element that contains the text "Notifications". The class="d-none" attribute is a Bootstrap class that makes this element not visible. -->
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-rg dropdown-menu-end"> <!-- This line opens a div that represents the dropdown menu. The dropdown-menu class is a Bootstrap class that styles this div as a dropdown menu. The dropdown-menu-rg class is likely a custom class for additional styling. The dropdown-menu-end class aligns the dropdown menu to the right of its parent. -->
+                                <div class="dropdown-head"> <!-- This line opens a div that likely represents the header of the dropdown menu. -->
+                                    <div class="title"> <!-- This line opens a div that likely contains the title of the dropdown menu. -->
+                                        <h6>Notifications</h6> <!-- This line defines a heading with the text "Notifications". -->
+                                    </div>
+                                    <ul class="nav nav-tabs nav-tabs-line"> <!-- This line opens an unordered list that likely represents a set of tabs in the dropdown menu. The nav and nav-tabs classes are Bootstrap classes that style this list as a set of tabs. The nav-tabs-line class is likely a custom class for additional styling. -->
+                                        <li class="nav-item"> <!-- This line opens a list item that likely represents a tab. -->
+                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#notifications-unread" type="button"> Unread </button> <!-- This line defines a button that acts as a tab. The data-bs-toggle="tab" attribute is a Bootstrap attribute that makes this button switch to a tab. The data-bs-target="#notifications-unread" attribute specifies the id of the tab pane that this button switches to. The text "Unread" is the label of the tab. -->
+                                        </li>
+                                        <li class="nav-item"> <!-- This line opens a list item that likely represents a tab. -->
+                                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#notifications-all" type="button"> All </button> <!-- This line defines a button that acts as a tab. The data-bs-toggle="tab" attribute is a Bootstrap attribute that makes this button switch to a tab. The data-bs-target="#notifications-all" attribute specifies the id of the tab pane that this button switches to. The active class indicates that this tab is currently selected. The text "All" is the label of the tab. -->
+                                        </li>
+                                    </ul>
+                                </div><!-- .dropdown-head -->
+                                <div class="dropdown-gap"> <!-- This line opens a div that likely provides some spacing in the dropdown menu. -->
+                                    <ul class="tyn-media-list gap gap-3"> <!-- This line opens an unordered list that likely represents a list of notifications. The gap and gap-3 classes likely provide some spacing between the list items. -->
+                                        <li>
+                                            <div class="tyn-media-group"> <!-- This line opens a div that likely groups together the elements of a notification. -->
+                                                <div class="tyn-media tyn-circle"> <!-- This line opens a div that likely contains an avatar. The tyn-circle class likely makes the avatar circular. -->
+                                                    <img src="images/avatar/1.jpg" alt=""> <!-- This line defines an image that is the avatar. The src attribute specifies the source of the image. -->
+                                                </div>
+                                                <div class="tyn-media-col"> <!-- This line opens a div that likely contains the text of the notification. -->
+                                                    <div class="tyn-media-row"> <!-- This line opens a div that likely contains a row of text in the notification. -->
+                                                        <span class="message"><strong>Phillip Burke</strong> Sent message</span> <!-- This line defines a span element that contains the text of the notification. The strong tag makes the text "Phillip Burke" bold, indicating that this is the sender of the message. -->
+                                                    </div>
+                                                    <div class="tyn-media-row"> <!-- This line opens another div that likely contains another row of text in the notification. -->
+                                                        <span class="meta">10 Hours ago</span> <!-- This line defines a span element that contains the time the notification was sent. -->
+                                                    </div>
+                                                </div>
+                                            </div><!-- .tyn-media-group -->
+                                        </li><!-- li -->
+                                        <li>
+                                            <div class="tyn-media-group align-items-start"> <!-- This line opens a div that likely groups together the elements of a notification. The align-items-start class likely aligns the items in this group at the start. -->
+                                                <div class="tyn-media tyn-circle"> <!-- This line opens a div that likely contains an avatar. The tyn-circle class likely makes the avatar circular. -->
+                                                    <img src="images/avatar/2.jpg" alt=""> <!-- This line defines an image that is the avatar. The src attribute specifies the source of the image. -->
+                                                </div>
+                                                <div class="tyn-media-col"> <!-- This line opens a div that likely contains the text of the notification. -->
+                                                    <div class="tyn-media-row"> <!-- This line opens a div that likely contains a row of text in the notification. -->
+                                                        <span class="message">Missed call from <strong>Romy Schulte</strong></span> <!-- This line defines a span element that contains the text of the notification. The strong tag makes the text "Romy Schulte" bold, indicating that this is the person who made the missed call. -->
+                                                    </div>
+                                                    <div class="tyn-media-row has-dot-sap"> <!-- This line opens another div that likely contains another row of text in the notification. The has-dot-sap class likely provides some styling. -->
+                                                        <span class="meta">2 days ago</span> <!-- This line defines a span element that contains the time the notification was sent. -->
+                                                    </div>
+                                                    <div class="tyn-media-row"> <!--  This line opens another div that likely contains another row of text in the notification. -->
+                                                        <ul class="tyn-btn-inline gap gap-2 pt-1"> <!-- This line opens an unordered list that likely represents a list of buttons. The gap and gap-2 classes likely provide some spacing between the buttons. The pt-1 class likely provides some padding at the top. -->
+                                                            <li>
+                                                                <button class="btn btn-md btn-light"> <!-- This line defines a button. The btn, btn-md, and btn-light classes are Bootstrap classes that style this button. -->
+                                                                    <!-- telephone -->
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                                                                        <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                                                                    </svg>
+                                                                    <span>Call Back</span> <!--  This line defines a span element that contains the text "Call Back", which is the label of the button. -->
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div><!-- .tyn-media-group -->
+                                        </li><!-- li -->
+                                        <li>
+                                            <div class="tyn-media-group align-items-start"> <!-- This is a container div with two CSS classes, tyn-media-group and align-items-start. These classes likely define the layout and styling of the contained elements. -->
+                                                <div class="tyn-media tyn-circle"> <!-- Inside this div, there are two main div elements. The first div with class tyn-media tyn-circle contains an img tag, which is used to display an avatar image. -->
+                                                    <img src="images/avatar/3.jpg" alt=""> <!-- The img tag within the tyn-media tyn-circle div is used to display an image. The src attribute specifies the path to the image file, and the alt attribute provides alternative text that describes the image. This text is displayed if the image cannot be loaded, and is also used by screen readers. -->
+                                                </div>
+                                                <div class="tyn-media-col"><!-- The second div with class tyn-media-col contains two div elements, each with the class tyn-media-row. These rows contain: -->
+                                                    <div class="tyn-media-row">
+                                                        <span class="message"><strong>Thomas Poulain</strong> Added You</span> <!-- The first row displays a message indicating that a user named "Thomas Poulain" has added you. -->
+                                                    </div>
+                                                    <div class="tyn-media-row has-dot-sap"> <!-- The has-dot-sap class in the second tyn-media-row div likely adds some specific styling or functionality, but without the CSS or JavaScript code, it's hard to say exactly what it does. -->
+                                                        <span class="meta">1 weeks ago</span> <!-- The second row shows a timestamp ("1 weeks ago"). -->
+                                                    </div>
+                                                    <div class="tyn-media-row"> <!-- This is a container div with the CSS class tyn-media-row. This class likely defines the layout and styling of the contained elements. -->
+                                                        <ul class="tyn-btn-inline gap gap-3 pt-1"> <!-- Inside this div, there is an unordered list (ul) with the class tyn-btn-inline gap gap-3 pt-1. These classes likely define the layout and styling of the list and its items. -->
+                                                            <li>
+                                                                <button class="btn btn-md btn-primary"> <!-- Each list item (li) contains a button (button) with the classes btn, btn-md, and btn-primary. These classes likely define the appearance and size of the button. -->
+                                                                    <!-- check2-circle -->
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                                                        <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z" />
+                                                                        <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z" />
+                                                                    </svg>
+                                                                    <span>Accept</span> <!-- The button, when clicked, likely triggers an action related to accepting something, as suggested by the "Accept" text. However, without the associated JavaScript code, it's hard to say exactly what action is triggered. -->
+                                                                </button>
+                                                            </li>
+                                                            <li>
+                                                                <button class="btn btn-md btn-light"> <!-- This is a button with three CSS classes, btn, btn-md, and btn-light. These classes likely define the appearance and size of the button. -->
+                                                                    <!-- x-circle, Inside the button, there is an SVG image and a span element. The SVG image is a "x-circle" icon, and the span contains the text "Reject". The SVG image is defined with two path elements. The path element is used to define a path. The d attribute contains a series of commands and parameters used by those commands. The first path likely defines the circle and the second path defines the "X" shape. -->
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                                                    </svg>
+                                                                    <span>Reject</span> <!-- The button, when clicked, likely triggers an action related to rejecting something, as suggested by the "Reject" text. However, without the associated JavaScript code, it's hard to say exactly what action is triggered. -->
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div><!-- .tyn-media-group -->
+                                        </li><!-- li -->
+                                        <li>
+                                            <div class="tyn-media-group"> <!-- The div with class tyn-media-group is a container for a user's avatar and information. Inside it, there are two main div elements. -->
+                                                <div class="tyn-media tyn-circle"> <!-- The first div with class tyn-media tyn-circle contains an img tag, which is used to display an avatar image. -->
+                                                    <img src="images/avatar/4.jpg" alt="">
+                                                </div>
+                                                <div class="tyn-media-col"> <!-- The second div with class tyn-media-col contains two div elements, each with the class tyn-media-row. These rows contain: -->
+                                                    <div class="tyn-media-row">
+                                                        <span class="message"><strong>Gabriel Schmitz</strong> Sent message</span> <!-- The first row displays a message indicating that a user named "Gabriel Schmitz" has sent a message. -->
+                                                    </div>
+                                                    <div class="tyn-media-row has-dot-sap">
+                                                        <span class="meta">1 Months ago</span> <!-- The second row shows a timestamp ("1 Months ago"). -->
+                                                    </div>
+                                                </div>
+                                            </div><!-- .tyn-media-group -->
+                                        </li><!-- li -->
+                                    </ul><!-- .tyn-media-list -->
+                                </div><!-- .dropdown-gap -->
+                            </div><!-- .dropdown-menu -->
+                        </li><!-- .tyn-appbar-item -->
+                        <li class="tyn-appbar-item"> <!-- This is a list item (li) with the class tyn-appbar-item. This class likely defines the appearance and behavior of the item in the app bar. -->
+                            <a class="d-inline-flex dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown" href="#" data-bs-offset="0,10"> <!-- This is a link (a) that likely triggers a dropdown menu. The d-inline-flex class likely makes the link an inline-level flex container. The dropdown-toggle class and data-bs-toggle="dropdown" attribute indicate that this link is used to toggle a dropdown menu. The data-bs-auto-close="outside" attribute means the dropdown will automatically close when clicking outside of it. The data-bs-offset="0,10" attribute likely offsets the dropdown menu position. -->
+                                <div class="tyn-media tyn-size-lg tyn-circle"> <!-- This is a container div with three classes. tyn-media likely provides some general styles for media objects, tyn-size-lg likely makes the media object larger, and tyn-circle likely makes the media object circular. -->
+                                    <img src="images/avatar/3.jpg" alt=""> <!-- This is an image (img) that displays the avatar. The src attribute specifies the path to the image file. The alt attribute provides alternative text that describes the image. This text is displayed if the image cannot be loaded, and is also used by screen readers. -->
+                                </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end"> <!-- This is a container div that likely contains the dropdown menu items. The dropdown-menu class likely provides styles for the dropdown menu, and dropdown-menu-end likely aligns the dropdown menu to the right of its parent. -->
+                                <div class="dropdown-gap"> <!-- This is a container div with the class dropdown-gap. This class likely provides some spacing in the dropdown menu. -->
+                                    <div class="tyn-media-group"> <!-- This is a container div with the class tyn-media-group. This class likely provides some layout for media objects. -->
+                                        <div class="tyn-media tyn-size-lg"> <!-- This is another media object div, similar to the one inside the link (a) tag. -->
+                                            <img src="images/avatar/3.jpg" alt=""> <!-- This is another avatar image, similar to the one inside the link (a) tag. -->
+                                        </div>
+                                        <div class="tyn-media-col"> <!-- This is a container div with the class tyn-media-col. This class likely defines the layout and styling of the contained elements. -->
+                                            <div class="tyn-media-row"> <!-- This is another container div with the class tyn-media-row. This class likely defines the layout and styling of the contained elements. -->
+                                                <h6 class="name">Dame Dash</h6> <!-- This is a heading (h6) with the class name. It displays the name "Dame Dash". -->
+                                                <div class="indicator varified"> <!-- This is a container div with the classes indicator and varified. These classes likely define the appearance and behavior of the contained elements. -->
+                                                    <!-- check-circle-fill -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="tyn-media-row has-dot-sap"> <!-- This is another div with the class tyn-media-row and an additional class has-dot-sap. These classes likely define the layout and styling of the contained elements. -->
+                                                <p class="content">Liked that disco music</p> <!-- This is a paragraph (p) with the class content. It displays the text "Liked that disco music". -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- .dropdown-gap -->
+                                <div class="dropdown-gap"> <!-- This is a container div with the class dropdown-gap. This class likely provides some spacing in the dropdown menu. -->
+                                    <div class="d-flex gap gap-2"> <!-- This is another container div with the classes d-flex, gap, and gap-2. These classes likely define the layout and spacing of the contained elements. -->
+                                        <!-- moon-fill -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-fill" viewBox="0 0 16 16">
+                                            <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z" />
+                                        </svg>
+                                        <div>
+                                            <h6>Darkmode</h6> <!-- This is a heading (h6) that displays the text "Darkmode". -->
+                                            <ul class="d-flex align-items-center gap gap-3"> <!-- This is an unordered list (ul) with the classes d-flex, align-items-center, gap, and gap-3. These classes likely define the layout and spacing of the list items. -->
+                                                <li class="inline-flex"> <!-- This is a list item (li) with the class inline-flex. This class likely makes the list item an inline-level flex container. -->
+                                                    <div class="form-check"> <!-- This is a container div with the class form-check. This class likely provides some styles for form controls. -->
+                                                        <input class="form-check-input" type="radio" name="themeMode" id="dark" value="dark"> <!-- This is a radio button input (input) with the class form-check-input. The name attribute groups this radio button with others of the same name. The id attribute provides a unique identifier for the radio button. The value attribute specifies the value to be sent to the server when the form is submitted. -->
+                                                        <label class="form-check-label small" for="dark"> On </label> <!-- This is a label (label) for the radio button. The for attribute associates the label with the radio button with the id "dark". The text "On" indicates that this radio button turns on the dark mode. -->
+                                                    </div>
+                                                </li>
+                                                <li class="inline-flex"> <!-- The second <li class="inline-flex">, <div class="form-check">, <input class="form-check-input" type="radio" name="themeMode" id="light" value="light" checked>, and <label class="form-check-label small" for="light"> Off </label> are similar to the previous ones, but they represent a radio button for turning off the dark mode. The checked attribute indicates that this radio button is selected by default -->
+                                                    <div class="form-check"> <!-- The second <li class="inline-flex">, <div class="form-check">, <input class="form-check-input" type="radio" name="themeMode" id="light" value="light" checked>, and <label class="form-check-label small" for="light"> Off </label> are similar to the previous ones, but they represent a radio button for turning off the dark mode. The checked attribute indicates that this radio button is selected by default -->
+                                                        <input class="form-check-input" type="radio" name="themeMode" id="light" value="light" checked> <!-- The second <li class="inline-flex">, <div class="form-check">, <input class="form-check-input" type="radio" name="themeMode" id="light" value="light" checked>, and <label class="form-check-label small" for="light"> Off </label> are similar to the previous ones, but they represent a radio button for turning off the dark mode. The checked attribute indicates that this radio button is selected by default -->
+                                                        <label class="form-check-label small" for="light"> Off </label> <!-- The second <li class="inline-flex">, <div class="form-check">, <input class="form-check-input" type="radio" name="themeMode" id="light" value="light" checked>, and <label class="form-check-label small" for="light"> Off </label> are similar to the previous ones, but they represent a radio button for turning off the dark mode. The checked attribute indicates that this radio button is selected by default -->
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="tyn-list-links"> <!-- This is an unordered list (ul) with the class tyn-list-links. This class likely provides some styles for the list. -->
+                                    <li>
+                                        <a href="profile.html#profile-index"> <!-- This is a hyperlink (a) that points to the "profile-index" section of the "profile.html" page. -->
+                                            <!-- person -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+                                            </svg>
+                                            <span>Profile</span> <!-- This is a span (span) that displays the text "Profile". -->
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="profile.html#profile-settings"> <!-- This is an anchor tag, which creates a hyperlink. The href attribute specifies the destination of the link. In this case, it's linking to the "profile-settings" section of the "profile.html" page. -->
+                                            <!-- gear -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                                                <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" />
+                                                <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z" />
+                                            </svg>
+                                            <span>Settings</span> <!-- This is a span element. It's an inline container used to mark up a part of a text, or a part of a document. In this case, it's used to display the text "Settings". -->
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="profile.html#profile-change-password"> <!-- This is an anchor tag, which creates a hyperlink. The href attribute specifies the destination of the link. In this case, it's linking to the "profile-change-password" section of the "profile.html" page. -->
+                                            <!-- unlock -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-unlock" viewBox="0 0 16 16">
+                                                <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2zM3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H3z" />
+                                            </svg>
+                                            <span>Change Password</span> <!-- This is a span element. It's an inline container used to mark up a part of a text, or a part of a document. In this case, it's used to display the text "Change Password". -->
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-divider"></li> <!-- This is a list item (li) with a class dropdown-divider. This class likely applies some styles that make this list item act as a divider in a dropdown menu. -->
+                                    <li>
+                                        <a href="login.html"> <!-- This is an anchor tag, which creates a hyperlink. The href attribute specifies the destination of the link. In this case, it's linking to the "login.html" page. -->
+                                            <!-- power -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
+                                                <path d="M7.5 1v7h1V1h-1z" />
+                                                <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z" />
+                                            </svg>
+                                            <span>Log Out</span> <!-- This is a span element. It's an inline container used to mark up a part of a text, or a part of a document. In this case, it's used to display the text "Log Out". -->
+                                        </a>
+                                    </li>
+                                </ul><!-- .tyn-list-links -->
+                            </div><!-- .dropdown-menu -->
+                        </li><!-- .tyn-appbar-item -->
+                    </ul><!-- .tyn-appbar-nav -->
+                </div><!-- .tyn-appbar-content -->
+            </div><!-- .tyn-appbar-wrap -->
+        </nav><!-- .tyn-appbar -->
+        <div class="tyn-content tyn-content-full-height tyn-chatbot tyn-chatbot-page has-aside-base"> <!-- This is a div element with multiple classes. These classes likely apply styles related to the content area of a chatbot page that has a base aside section. -->
+            <div class="tyn-aside tyn-aside-base"> <!-- This div has classes that likely apply styles related to an aside section of the page. -->
+                <div class="tyn-aside-head"> <!-- This div has a class that likely applies styles related to the head of the aside section. -->
+                    <div class="tyn-aside-head-text"> <!-- This div has a class that likely applies styles related to the text in the head of the aside section. -->
+                        <h3 class="tyn-aside-title tyn-title">doLoRes mAgee</h3> <!-- This is a heading element (h3) with classes that likely apply styles related to the title in the aside section. The text "doLoRes mAgee" is the content of the heading. -->
+                        <span class="tyn-subtext"> doLoRes knows all and sees all </span> <!-- This is a span element with a class that likely applies styles related to the subtext. The text "doLoRes knows all and sees all" is the content of the span. -->
+                    </div>
+                    <div class="tyn-aside-head-tools"> <!-- This div has a class that likely applies styles related to the tools in the head of the aside section. -->
+                        <ul class="tyn-list-inline gap gap-3"> <!-- This is an unordered list (ul) with classes that likely apply styles related to an inline list with gaps. -->
+                            <li><a class="btn btn-icon btn-light btn-md btn-pill" href="chat-bot-welcome.html"> <!-- This is a list item (li) containing an anchor tag (a). The anchor tag has classes that likely apply styles related to a button and it links to the "chat-bot-welcome.html" page. -->
+                                    <!-- plus-lg -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                                    </svg>
+                                </a></li>
+                        </ul>
+                    </div>
+                </div><!-- .tyn-aside-head -->
+                <div class="tyn-aside-body" data-simplebar> <!-- This is a div element with the class tyn-aside-body and a data-simplebar attribute. The class likely applies styles related to the body of the aside section. The data-simplebar attribute is likely used by a JavaScript library called SimpleBar for custom scrollbars. -->
+                    <ul class="tyn-aside-list"> <!-- This is an unordered list (ul) with a class tyn-aside-list that likely applies styles related to a list in the aside section. -->
+                        <li class="tyn-aside-item tyn-aside-item-bubbly  js-toggle-main active"> <!-- This is a list item (li) with multiple classes. These classes likely apply styles and functionality related to an active, bubbly item in the aside list that can toggle the main content. -->
+                            <div class="tyn-media-group"> <!-- This is a div element with the class tyn-media-group that likely applies styles related to a group of media items. -->
+                                <div class="tyn-media tyn-size-sm"> <!-- This is a div element with classes tyn-media and tyn-size-sm that likely apply styles related to a small-sized media item. -->
+                                    <!-- chat-quote-fill -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-quote-fill" viewBox="0 0 16 16">
+                                        <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM7.194 6.766a1.688 1.688 0 0 0-.227-.272 1.467 1.467 0 0 0-.469-.324l-.008-.004A1.785 1.785 0 0 0 5.734 6C4.776 6 4 6.746 4 7.667c0 .92.776 1.666 1.734 1.666.343 0 .662-.095.931-.26-.137.389-.39.804-.81 1.22a.405.405 0 0 0 .011.59c.173.16.447.155.614-.01 1.334-1.329 1.37-2.758.941-3.706a2.461 2.461 0 0 0-.227-.4zM11 9.073c-.136.389-.39.804-.81 1.22a.405.405 0 0 0 .012.59c.172.16.446.155.613-.01 1.334-1.329 1.37-2.758.942-3.706a2.466 2.466 0 0 0-.228-.4 1.686 1.686 0 0 0-.227-.273 1.466 1.466 0 0 0-.469-.324l-.008-.004A1.785 1.785 0 0 0 10.07 6c-.957 0-1.734.746-1.734 1.667 0 .92.777 1.666 1.734 1.666.343 0 .662-.095.931-.26z" />
+                                    </svg>
+                                </div>
+                                <div class="tyn-media-col"> <!-- This is a div element with the class tyn-media-col that likely applies styles related to a column in the media group. -->
+                                    <div class="content">new chat</div> <!-- This is a div element with the class content that contains the text "new chat". The class likely applies styles related to the content of the media column. -->
+                                </div>
+                                <div class="tyn-media-option"> <!-- This is a div element with the class tyn-media-option. The class likely applies styles related to a media option. -->
+                                    <ul class="tyn-media-option-list"> <!-- This is an unordered list (ul) with a class tyn-media-option-list that likely applies styles related to a list of media options. -->
+                                        <li>
+                                            <button class="btn btn-icon btn-md btn-pill btn-light"> <!-- This is a button element with multiple classes. These classes likely apply styles related to a medium-sized, pill-shaped, light-colored button with an icon. -->
+                                                <!-- trash -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                                                </svg>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li><!-- .tyn-aside-item -->
+                    </ul>
+                </div><!-- .tyn-aside-body -->
+                <div class="tyn-aside-foot"> <!-- This is a div element with the class tyn-aside-foot. The class likely applies styles related to the footer of the aside section. -->
+                    <div class="w-100"> <!-- This is a div element with the class w-100. The class likely applies styles to make the div take up 100% of the width of its parent. -->
+                        <ul class="row gx-3"> <!-- This is an unordered list (ul) with classes row and gx-3. These classes are typically used in Bootstrap to create a row of columns with a horizontal gap (gutter) of size 3. -->
+                            <li class="col-6"> <!-- This is a list item (li) with the class col-6. This class is typically used in Bootstrap to specify that the list item should take up 6 out of 12 columns in the row. -->
+                                <a href="pricing.html" class="btn btn-light tyn-size-lg w-100 flex-column py-2 pt-3"> <!-- This is an anchor tag, which creates a hyperlink. The href attribute specifies the destination of the link. The classes apply various styles, including button styles, light color, large size, full width, flex column layout, and padding. -->
+                                    <!-- person-up -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-up" viewBox="0 0 16 16">
+                                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.354-5.854 1.5 1.5a.5.5 0 0 1-.708.708L13 11.707V14.5a.5.5 0 0 1-1 0v-2.793l-.646.647a.5.5 0 0 1-.708-.708l1.5-1.5a.5.5 0 0 1 .708 0ZM11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+                                        <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z" />
+                                    </svg>
+                                    <span class="small text-nowrap mt-n1">download docs</span> <!-- This is a span element. It's an inline container used to mark up a part of a text, or a part of a document. In this case, it's used to display the text "download docs". The classes apply various styles, including small size, no wrapping of text, and negative top margin. -->
+                                </a>
+                            </li>
+                            <li class="col-6"> <!-- This is a list item (li) with the class col-6. This class is typically used in Bootstrap to specify that the list item should take up 6 out of 12 columns in the row. -->
+                                <button class="btn btn-light tyn-size-lg w-100 flex-column py-2 pt-3"> <!-- This is a button element with multiple classes. These classes likely apply styles related to a large-sized, light-colored button with full width, flex column layout, and padding. -->
+                                    <!-- trash -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                                    </svg>
+                                    <span class="small text-nowrap mt-n1">calander of events</span> <!-- This is a span element. It's an inline container used to mark up a part of a text, or a part of a document. In this case, it's used to display the text "clear archive". The classes apply various styles, including small size, no wrapping of text, and negative top margin. -->
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div><!-- .tyn-aside-head -->
+            </div><!-- .tyn-aside -->
+            <div class="tyn-main main-shown" id="tynMain"> <!-- This is a div element with the classes tyn-main and main-shown, and the id tynMain. The classes likely apply styles related to the main section of the page, and the id is used to uniquely identify this element. -->
+                <ul class="tyn-list-inline d-md-none translate-middle-x position-absolute start-50 z-1"> <!-- This is an unordered list (ul) with several classes. These classes likely apply styles related to inline list, hiding the element on medium and larger screens, centering the element horizontally, positioning the element absolutely, starting the element from the middle of its parent, and setting its stack order. -->
+                    <li>
+                        <button class="btn btn-icon btn-pill btn-white js-toggle-main"> <!-- This is a button element with multiple classes. These classes likely apply styles related to a pill-shaped, white button with an icon, and a JavaScript function to toggle the main section. -->
+                            <!-- x-lg -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                            </svg>
+                        </button>
+                    </li>
+                </ul>
+                <div class="tyn-chat-body my-4 px-4" id="tynBotBody"> <!-- This is a div element with the class tyn-chat-body, and the id tynBotBody. The class likely applies styles related to the body of a chat section. The id is used to uniquely identify this element. The my-4 and px-4 classes likely apply margin and padding respectively. -->
+                    <div class="container px-0"> <!-- This is a div element with the class container and px-0. The container class is typically used in Bootstrap to center and horizontally pad the content. The px-0 class likely removes the horizontal padding. -->
+                    </div>
+                </div><!-- .tyn-chat-body -->
+                <script src="https://cdn.socket.io/socket.io-4.0.0.js"></script>
+                <script type="text/javascript">
+                    var socket = io.connect('http://' + document.domain + ':' + location.port);
+                
+                    socket.on('connect', function() {
+                        console.log('Websocket connected!');
+                    });
+                
+                    socket.on('new_message', function(data) {
+                        // Code to handle incoming message
+                        console.log('New message:', data);
+                        // Append the new message to your chat window
+                    });
+                
+                    document.getElementById('tynBotSend').onclick = function() {
+                        var messageContent = document.getElementById('tynBotInput').innerText;
+                        socket.emit('send_message', {'content': messageContent});
+                        document.getElementById('tynBotInput').innerText = ''; // Clear input field after sending
+                    };
+                </script>
+                    
+                <div id="greeting-container">
+                    <div id="greeting"></div>
+                </div>
+
+                <!-- Weather Data Display -->
+                <div id="weather-container">
+                    <i class="wi wi-day-rain-mix"></i>
+                    <p>75°</p>
+                    <!-- <p>Temperature: {{ weather_data.current.temperature_2m|default('75', true) }}°F</p> -->
+
+                </div>
+
+                <div class="card-container">
+                    <div class="card">
+                        <img src="../images/cardmedia2.png" alt="Silhouette of mountains">
+                        <div class="card-content">
+                            <h4><b>Calander of Events</b></h4>
+                            <p></p>
+                            <p>Here's a small text description for the card content.</p>
+                        </div>
+                    </div>
+                
+                    <div class="card">
+                        <img src="../images/agenttask.png" alt="Agent Task">
+                        <div class="card-content">
+                            <h4><b>Agent Task</b></h4>
+                            <p></p>
+                            <p>Here's a text description for the card content.</p>
+                        </div>
+                    </div>
+                
+                    <div class="card">
+                        <img src="../images/modsupload.png" alt="Mods Upload">
+                        <div class="card-content">
+                            <h4><b>Upload Mods</b></h4>
+                            <p></p>
+                            <p>Here's a small text description for the card content.</p>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var sendButton = document.getElementById('tynBotSend');
+                    
+                        sendButton.addEventListener('click', function() {
+                            var inputContent = document.getElementById('tynBotInput').innerText; // Get the content from the editable div
+                            localStorage.setItem('tynBotInputValue', inputContent); // Store it in localStorage
+                    
+                            window.location.href = 'chat-bot-s2-starter.html'; // Navigate to the new page
+                        });
+                    });
+                    </script>                
+
+                <div class="tyn-chat-form border-0 px-4"> <!-- This is a div element with the class tyn-chat-form, border-0, and px-4. The classes likely apply styles related to a chat form, no border, and horizontal padding. -->
+                    <div class="container px-0"> <!-- This is a div element with the class container and px-0. The container class is typically used in Bootstrap to center and horizontally pad the content. The px-0 class likely removes the horizontal padding. -->
+                        <div class="ps-3 pe-4 py-3 bg-white mb-4 rounded-3"> <!-- This is a div element with several classes. These classes likely apply styles related to padding, background color, margin, and rounded corners. -->
+                            <div class="tyn-chat-form-enter"> <!-- This is a div element with the class tyn-chat-form-enter. The class likely applies styles related to the enter area of the chat form. -->
+                                <div class="tyn-chat-form-input" id="tynBotInput" placeholder="text" contenteditable></div> <!-- This is a div element with the class tyn-chat-form-input and the id tynBotInput. The placeholder attribute provides a hint to the user of what can be entered in the div. The contenteditable attribute allows the user to edit the content of the div. -->
+                                <ul class="tyn-list-inline me-n2 my-1"> <!-- This is an unordered list (ul) with several classes. These classes likely apply styles related to inline list, negative right margin, and vertical margin. -->
+                                    <li><button class="btn btn-icon btn-white btn-md btn-pill" id="tynBotSend"> <!-- This is a list item (li) containing a button element with multiple classes and the id tynBotSend. These classes likely apply styles related to a medium-sized, pill-shaped, white button with an icon. -->
+                                            <!-- send-fill -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                                                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
+                                            </svg>
+                                        </button></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- .tyn-chat-form -->
+            </div><!-- .tyn-chat-content -->
+        </div>
+    </div>
+    <script src="./assets/js/bundle.js?v131"></script> <!-- This is a script tag that includes the JavaScript file bundle.js located in the assets/js directory. The ?v131 at the end is a query string used for cache busting. When the file changes, the version number is incremented, which forces the browser to download the new file instead of using a cached version. -->
+    <script src="./assets/js/app.js?v131"></script> <!-- This is another script tag that includes the JavaScript file app.js located in the assets/js directory. The ?v131 at the end is used for the same purpose as in the previous line. -->
+</body>
+
+</html>

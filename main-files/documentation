@@ -1,0 +1,13 @@
+
+npm install
+
+npm install --global gulp-cli
+
+gulp build
+
+gulp develop
+
+npm install -g http-server
+http-server -o
+
+python app.py
